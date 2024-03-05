@@ -8,14 +8,40 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var isAnimated = false
+    private let width: CGFloat = 100
+    private let minOpacity: CGFloat = 0.5
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        Button(action: {
+            withAnimation(.interpolatingSpring(stiffness: 100, damping: 10), completionCriteria: .logicallyComplete) {
+                isAnimated = true
+            } completion: {
+                isAnimated = false
+            }
+        }, label: {
+            HStack(spacing: 0, content: {
+                ImageContentView()
+                    .frame(width: isAnimated ? width : 1)
+                    .opacity(isAnimated ? 1 : minOpacity)
+                
+                ImageContentView()
+                    .frame(width: width)
+                
+                ImageContentView()
+                    .frame(width: isAnimated ? 1 : width)
+                    .opacity(isAnimated ? minOpacity : 1)
+            })
+        })
+    }
+}
+
+struct ImageContentView: View {
+    var body: some View {
+        Image(systemName: "play.fill")
+            .resizable()
+            .scaledToFit()
     }
 }
 
