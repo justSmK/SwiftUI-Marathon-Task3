@@ -25,6 +25,7 @@ struct ContentView: View {
                 ImageContentView()
                     .frame(width: isAnimated ? width : 1)
                     .opacity(isAnimated ? 1 : minOpacity)
+                    .scaleEffect(isAnimated ? 1 : 0)
                 
                 ImageContentView()
                     .frame(width: width)
@@ -32,6 +33,7 @@ struct ContentView: View {
                 ImageContentView()
                     .frame(width: isAnimated ? 1 : width)
                     .opacity(isAnimated ? minOpacity : 1)
+                    .scaleEffect(isAnimated ? 0 : 1)
             })
         })
     }
